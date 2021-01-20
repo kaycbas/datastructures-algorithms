@@ -13,11 +13,11 @@ class Node {
   breadthFirstSearch(array) {
     let queue = [this];
     while (queue.length > 0) {
-        const node = queue.pop();
-        array.push(node.name);
-        for (const child of node.children) {
-            queue.unshift(child);
-        }
+      const node = queue.pop();
+      array.push(node.name);
+      for (const child of node.children) {
+        queue.unshift(child);
+      }
     }
     return array;
   }
