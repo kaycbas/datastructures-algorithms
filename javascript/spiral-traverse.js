@@ -26,5 +26,6 @@ function spiralTraverse(array) {
 		startRow++;
 		endRow--;
 	}
+    
 	return result;
 }
