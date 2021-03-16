@@ -23,7 +23,5 @@ class MinHeap {
         items[indexTwo] = temp;
     }
 
-    peek() {
-
-    }
+    peek() {}
 }
