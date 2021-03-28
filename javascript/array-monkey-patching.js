@@ -24,3 +24,14 @@ Array.prototype.myReduce = function(cb, acc) {
     
     return acc;
 }
+
+// Write an `Array.prototype.myMap(callback, acc)` method
+Array.prototype.myMap = function(cb) {
+    const mapped = [];
+
+    arr.myEach((el) => {
+        mapped.push(cb(el));
+    });
+    
+    return mapped;
+}
