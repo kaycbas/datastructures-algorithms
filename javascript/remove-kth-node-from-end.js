@@ -11,17 +11,14 @@ function removeKthNodeFromEnd(head, k) {
     const length = getLinkedListLength(head);
     let removeIdx = length - k;
 
-    let node = head;
-    let prev = null;
-
     if (removeIdx === 0) {
         head.value = head.next.value;
-        prev = head;
     }
 
-    for (let i = 0; i < removeIdx; i++) {
-        prev = node;
-        node = node.next;
+    let prev = head;
+
+    for (let i = 1; i < removeIdx; i++) {
+        prev = prev.next;
     }
 
     prev.next = prev.next.next;
