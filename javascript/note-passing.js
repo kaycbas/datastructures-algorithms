@@ -1,4 +1,5 @@
 // Google technical phone screen
+// O(n) time | O(1) space - where n is the length of the path
 function calculateRisk(path) {
     let totalSuccessRate = 1;
 
