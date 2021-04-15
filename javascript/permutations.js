@@ -16,7 +16,7 @@ function getPermsHelper(array, perm, permsArr) {
         newPerm.push(array[i]);
         newArr.splice(i, 1);
 
-        getPermsHelper(newArr, newPerm, permsArr)
+        getPermsHelper(newArr, newPerm, permsArr);
     }
 
     return permsArr;

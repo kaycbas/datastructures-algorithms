@@ -1,64 +1,51 @@
+function generateDivTags(numberOfTags) {
+	const tags = new Array(numberOfTags).fill('<div>');
+	for (let i = 0; i < numberOfTags; i++) {
+		tags.push('</div>');
+	}
+	
+	const validPermutations = [];
+	calcValidPermutations(tags, [], validPermutations);
 
-  const phoneMappings = {
-    '0': '0',
-    '1': '1',
-    '2': 'abc',
-    '3': 'def',
-    '4': 'ghi',
-    '5': 'jkl',
-    '6': 'mno',
-    '7': 'pqrs',
-    '8': 'tuv',
-    '9': 'wxyz'
-  };
-  
-  const groups = [];
-  for (const num of phoneNumber) {
-    const group = phoneMappings[num];
-    groups.push(group);
+  for (let i = 0; i < validPermutations.length; i++) {
+    validPermutations[i] = validPermutations[i].join('');
   }
-  const combos = calcCombos(groups, 0, '', []);
-  return combos;
+	
+  return [...new Set(validPermutations)];
 }
 
-function calcCombos(groups, targetIdx, currStr, combos) {
-  const targetGroup = groups[targetIdx];
-  for (const char of targetGroup) {
-    let newStr = currStr + char;
-    if (targetIdx < groups.length - 1 ) {
-      calcCombos(groups, targetIdx + 1, newStr, combos)
-    } else {
-      combos.push(newStr);
-    }
-  }
-  return combos;
+function calcValidPermutations(tags, currPermutation, validPermutations) {
+  // console.log(currPermutation);
+	if (tags.length === 0 && currPermutation.length > 0) {
+    // console.log(currPermutation);
+		if (validDivPerm(currPermutation)) {
+			validPermutations.push(currPermutation);
+		}
+	}
+	
+	for (let i = 0; i < tags.length; i++) {
+		const newPermutation = currPermutation.concat(tags[i]);
+		const newTags = tags.slice(0, i).concat(tags.slice(i + 1));
+		calcValidPermutations(newTags, newPermutation, validPermutations)
+	}
 }
-​
-50
-​
-51
+
+function validDivPerm(array) {
+	const openStack = [];
+	
+	for (const tag of array) {
+		if (tag.includes('/')) {
+			if (openStack.length === 0) return false;
+			openStack.pop();
+		} else {
+			openStack.push(tag);
+		}
+	}
+	
+	return true;
+}
 // Do not edit the line below.
-52
-exports.phoneNumberMnemonics = phoneNumberMnemonics;
-53
-​
+// exports.generateDivTags = generateDivTags;
 
-Custom Output
-
-Raw Output
-Yay, your code passed all the test cases!
-
-12 / 12 test cases passed.
-
-Test Case 1 passed!
-Test Case 2 passed!
-Test Case 3 passed!
-Test Case 4 passed!
-Test Case 5 passed!
-Test Case 6 passed!
-Test Case 7 passed!
-Test Case 8 passed!
-Test Case 9 passed!
-Test Case 10 passed!
-Test Case 11 passed!
-Test Case 12 passed!
+const result = generateDivTags(5);
+console.log(result);
