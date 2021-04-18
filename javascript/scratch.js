@@ -47,3 +47,64 @@ exports.getLowestCommonManager = getLowestCommonManager;
 function getLowestCommonManager(topManager, reportOne, reportTwo) {
 
 }
+
+// ----
+
+// O(n * l) time | O() space - where n is length of array and l is longest num
+function radixSort(array) {
+	const longest = getLongestNum(array);
+	let currArr = array;
+	
+	for (let i = 0; i < longest; i++) { // O(length of longest num)
+		currArr = countSort(currArr, i); // O(n) n is length of array
+	}
+
+  return currArr;
+}
+
+function countSort(array, place) {
+	const helper = new Array(10).fill(0);
+	
+	for (let i = 0; i < array.length; i++) {
+		const ele = array[i];
+		const digit = placeValue(ele, place);
+		helper[digit]++;
+	}
+	
+	for (let i = 1; i < array.length; i++) {
+		helper[i] += helper[i - 1];
+	}
+	
+	const sorted = new Array(array.length).fill(0);
+	
+	for (let i = array.length - 1; i >= 0; i--) {
+		const ele = array[i];
+		const digit = placeValue(ele, place);
+		
+		const lastIdx = helper[digit] - 1;
+		
+		sorted[lastIdx] = ele;
+		helper[digit]--;
+	}
+	
+	return sorted;
+}
+
+function placeValue(num, place) {
+	const numStr = num.toString();
+	
+	if ((place + 1) > numStr.length) return 0;
+	
+	const numChar = numStr[numStr - 1 - place];
+	return Number.parseInt(numChar);
+}
+
+function getLongestNum(array) {
+	let maxNum = array.reduce((max, ele) => ele > max ? ele : max);
+	return maxNum.toString().length;
+}
+
+// Do not edit the line below.
+exports.radixSort = radixSort;
+
+
