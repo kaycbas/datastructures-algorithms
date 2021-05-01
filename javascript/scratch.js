@@ -1,110 +1,21 @@
-// O(n) time | O(n^2) space
-function getLowestCommonManager(topManager, reportOne, reportTwo) {
-  let path1 = [];
-  path1 = findPath(topManager, reportOne, [], path1); // [node1, node2, etc]
+/*
 
-  let path2 = [];
-  path2 = findPath(topManager, reportTwo, [], path2); // [node1, node2, etc]
+1. Calc final total dollar amount after investing  => totalInvested
+2. Mult totalInvested by target %'s to determine target $ amounts for each category
+3. For all funds that are currently under their target amount, sum up how much they're under => totalDeltas
+4. For each fund that is under it's target amount (by 'delta'), find the fraction of (delta / totalDeltas) => thirstFractioon
+5. For each fund, add (fundsToInvest * thirstFraction) to that fund
 
-  const commonManagers = [];
-  for (let i = 0; i < path1.length; i++) {
-    if (path1[i] === path2[i]) commonManagers.push(path1[i]);
-  }
+Example:
 
-  return commonManagers[commonManagers.length - 1];
-}
+fundAmounts = [20, 30, 40]
+fundsToInvest = 10
+targetPercents = [30, 40, 30]
 
-function findPath(topManager, target, currPath, finalPath) {
-  if (finalPath.length > 0) return finalPath;
+1. totalInvested = 100
+2. targetAmounts = [30, 40, 30]
+3. totalDeltas = 10 + 10 = 20
+4. amountsToAdd = [(10 / 20) * 10, (10 / 20) * 10, (0 / 20) * 10] = [5, 5, 0]
+5. finalAmounts = [25, 35, 40]
 
-  currPath.push(topManager);
-
-  if (topManager === target) {
-    finalPath = [...currPath];
-    return finalPath;
-  } else {
-    for (const report of topManager.directReports) {
-      findPath(report, target, [...currPath], finalPath);
-    }
-  }
-
-  return finalPath;
-}
-
-// This is an input class. Do not edit.
-class OrgChart {
-  constructor(name) {
-    this.name = name;
-    this.directReports = [];
-  }
-}
-
-// Do not edit the line below.
-exports.getLowestCommonManager = getLowestCommonManager;
-
-//
-
-function getLowestCommonManager(topManager, reportOne, reportTwo) {
-
-}
-
-// ----
-
-// O(n * l) time | O() space - where n is length of array and l is longest num
-function radixSort(array) {
-	const longest = getLongestNum(array);
-	let currArr = array;
-	
-	for (let i = 0; i < longest; i++) { // O(length of longest num)
-		currArr = countSort(currArr, i); // O(n) n is length of array
-	}
-
-  return currArr;
-}
-
-function countSort(array, place) {
-	const helper = new Array(10).fill(0);
-	
-	for (let i = 0; i < array.length; i++) {
-		const ele = array[i];
-		const digit = placeValue(ele, place);
-		helper[digit]++;
-	}
-	
-	for (let i = 1; i < array.length; i++) {
-		helper[i] += helper[i - 1];
-	}
-	
-	const sorted = new Array(array.length).fill(0);
-	
-	for (let i = array.length - 1; i >= 0; i--) {
-		const ele = array[i];
-		const digit = placeValue(ele, place);
-		
-		const lastIdx = helper[digit] - 1;
-		
-		sorted[lastIdx] = ele;
-		helper[digit]--;
-	}
-	
-	return sorted;
-}
-
-function placeValue(num, place) {
-	const numStr = num.toString();
-	
-	if ((place + 1) > numStr.length) return 0;
-	
-	const numChar = numStr[numStr - 1 - place];
-	return Number.parseInt(numChar);
-}
-
-function getLongestNum(array) {
-	let maxNum = array.reduce((max, ele) => ele > max ? ele : max);
-	return maxNum.toString().length;
-}
-
-// Do not edit the line below.
-exports.radixSort = radixSort;
-
-
+*/
